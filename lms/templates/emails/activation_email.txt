@@ -12,6 +12,10 @@ http://${ site }/activate/${ key }
 
 ${_("If the link does not work, please copy and paste it into your browser's address bar.")}
 
+${"Happy learning"}
+
+${"Big Data University Team"}
+
 % if settings.FEATURES.get('IS_EDX_DOMAIN'):
 ${_("After you activate your account, you can sign up for "
     "and take any of the hundreds of courses {platform_name} offers."
