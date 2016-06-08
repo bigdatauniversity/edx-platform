@@ -2107,6 +2107,15 @@ def password_reset_confirm_wrapper(
                 entry = PasswordHistory()
                 entry.create(updated_user)
 
+            form_errors = result.context_data['form'].errors
+            if form_errors:
+
+                if 'new_password1' in form_errors:
+                    form_errors['Your New Password'] = form_errors.pop('new_password1')
+                if 'new_password2' in form_errors:
+                    form_errors['Your New Password Again'] = form_errors.pop('new_password2')
+                    
+                result.context_data['err_msg'] = form_errors
             return result
         else:
             return password_reset_confirm(
