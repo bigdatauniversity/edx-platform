@@ -1,8 +1,7 @@
-;(function (define) {
-    'use strict';
+(function (define) {
     define([], function() {
         var CCSegment = {
-            trackEvent: function (eventName, eventProperty) {
+            track: function (eventName, eventProperty) {
                 window.bluemixAnalytics.trackEvent(eventName, eventProperty);
             }
         };
