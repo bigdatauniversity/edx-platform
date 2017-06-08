@@ -18,7 +18,6 @@
          * done.
          */
         modules: getModulesList([
-            'js/courseware/courseware_factory',
             'js/discovery/discovery_factory',
             'js/edxnotes/views/notes_visibility_factory',
             'js/edxnotes/views/page_factory',
