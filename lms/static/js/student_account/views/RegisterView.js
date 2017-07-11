@@ -81,8 +81,10 @@
                     'action': 'Created',
                     'object': attributes['username'],
                     'objectType': 'Account',
-                    'userName': attributes['username'],
-                    'userEmail': attributes['email']});
+                    'customName1': 'UserName',
+                    'customValue1': attributes['username'],
+                    'customName2': 'UserEmail',
+                    'customValue2': attributes['email']});
                 this.trigger('auth-complete');
             },
 
