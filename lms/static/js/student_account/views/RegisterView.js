@@ -76,7 +76,6 @@
             saveSuccess: function() {
                 // Make segment api call to track user registration
                 var attributes = this.model.attributes;
-                console.log(attributes);
                 CCSegment.track({
                     'action': 'Created',
                     'object': attributes['username'],
