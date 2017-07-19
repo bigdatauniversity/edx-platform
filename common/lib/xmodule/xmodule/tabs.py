@@ -390,6 +390,18 @@ class CourseTabList(List):
                     yield tab
 
     @classmethod
+    def revert_tabs(cls, tabs):
+        """
+        Provides forward compatibility with the new course tab structure, by reverting Course to Courseware and Home to
+        Course Info and changing their order.
+        """
+        if tabs and len(tabs) > 1:
+            if tabs[0].get('type') == 'course_info' and tabs[1].get('type') == 'courseware':
+                tabs[0], tabs[1] = tabs[1], tabs[0]
+                tabs[0]['name'] = _('Courseware')
+                tabs[1]['name'] = _('Course Info')
+    
+    @classmethod
     def validate_tabs(cls, tabs):
         """
         Check that the tabs set for the specified course is valid.  If it
@@ -455,6 +467,7 @@ class CourseTabList(List):
         """
         Overrides the from_json method to de-serialize the CourseTab objects from a json-like representation.
         """
+        self.revert_tabs(values)
         self.validate_tabs(values)
         tabs = []
         for tab_dict in values:
