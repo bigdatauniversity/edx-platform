@@ -9,7 +9,7 @@
   // Note: user tracking moved to segment-io-footer.html
 </script>
 <!-- end Segment -->
-% else:
+% elif settings.SEGMENT_KEY is UNDEFINED:
 <!-- dummy Segment -->
 <script type="text/javascript">
   var analytics = {
