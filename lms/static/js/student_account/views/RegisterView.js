@@ -3,9 +3,10 @@
     define([
             'jquery',
             'underscore',
-            'js/student_account/views/FormView'
+            'js/student_account/views/FormView',
+            'js/cc-segment/segment'
         ],
-        function($, _, FormView) {
+        function($, _, FormView, CCSegment) {
 
         return FormView.extend({
             el: '#register-form',
@@ -73,6 +74,16 @@
             },
 
             saveSuccess: function() {
+                // Make segment api call to track user registration
+                var attributes = this.model.attributes;
+                CCSegment.track({
+                    'action': 'Created',
+                    'object': attributes['username'],
+                    'objectType': 'Account',
+                    'customName1': 'UserName',
+                    'customValue1': attributes['username'],
+                    'customName2': 'UserEmail',
+                    'customValue2': attributes['email']});
                 this.trigger('auth-complete');
             },
 
