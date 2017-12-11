@@ -522,6 +522,9 @@ FEATURES['ENABLE_COURSEWARE_SEARCH'] = True
 # Enable dashboard search for tests
 FEATURES['ENABLE_DASHBOARD_SEARCH'] = True
 
+# Enable dashboard offer sidebar for tests
+FEATURES['ENABLE_OFFER_SIDEBAR'] = True
+
 # Use MockSearchEngine as the search engine for test scenario
 SEARCH_ENGINE = "search.tests.mock_search_engine.MockSearchEngine"
 
