@@ -7,6 +7,7 @@
             return function () {
 
                 var offerSidebar = new OfferSidebar();
+                console.log("offerSidebar loaded "+offerSidebar);
                 var dispatcher = _.clone(Backbone.Events);
 
             };

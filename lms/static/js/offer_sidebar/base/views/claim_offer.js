@@ -11,23 +11,27 @@ define(['jquery', 'backbone'], function ($, Backbone) {
         },
 
         initialize: function () {
+            console.log("offer sidebar initialize");
             this.$claimButton = this.$el.find('.offer-claim-button');
             this.$offerTokenField = this.$el.find('.offer-token-field');
             this.setInitialStyle();
         },
 
         claimOffer: function () {
+            console.log("offer sidebar clainOffer");
             this.$offerTokenField.text('xxx-xxx-xxx');
             this.setActiveStyle();
             this.trigger('claim');
         },
 
         setActiveStyle: function () {
+            console.log("offer sidebar setActiveStyle");
             this.$claimButton.hide();
             this.$offerTokenField.show();
         },
 
         setInitialStyle: function () {
+            console.log("offer sidebar setInitialStyle");
             this.$claimButton.show();
             this.$offerTokenField.hide();
         }
