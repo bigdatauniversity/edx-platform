@@ -15,6 +15,8 @@ define(['jquery', 'backbone'], function ($, Backbone) {
             this.$claimButton = this.$el.find('.offer-claim-button');
             this.$offerTokenField = this.$el.find('.offer-token-field');
             this.setInitialStyle();
+            console.log(this.$claimButton);
+            console.log(this.$offerTokenField);
         },
 
         claimOffer: function () {
