@@ -19,6 +19,7 @@ define(['jquery', 'backbone'], function ($, Backbone) {
         claimOffer: function () {
             this.$offerTokenField.text('xxx-xxx-xxx');
             this.setActiveStyle();
+            this.trigger('claim');
         },
 
         setActiveStyle: function () {

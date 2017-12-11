@@ -2,10 +2,10 @@
 
 define([
     'js/offer_sidebar/base/views/claim_offer'
-], function (SearchForm) {
+], function (OfferSidebar) {
     'use strict';
 
-    return SearchForm.extend({
+    return OfferSidebar.extend({
         el: '#dashboard-offer-sidebar'
     });
 
