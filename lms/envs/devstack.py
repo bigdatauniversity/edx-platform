@@ -156,7 +156,7 @@ SEARCH_ENGINE = "search.elastic.ElasticSearchEngine"
 FEATURES['ENABLE_DASHBOARD_SEARCH'] = True
 
 
-########################## Dashboard Offer Sidebar #######################
+########################## Offer Sidebar #######################
 FEATURES['ENABLE_OFFER_SIDEBAR'] = True
 
 
