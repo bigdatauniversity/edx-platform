@@ -14,6 +14,7 @@ define(['jquery', 'backbone'], function ($, Backbone) {
             console.log("offer sidebar initialize");
             this.$claimButton = this.$el.find('.offer-claim-button');
             this.$offerTokenField = this.$el.find('.offer-token-field');
+            this.$offerClaimedWrapper = this.$el.find('.offer-claimed-wrapper');
             this.setInitialStyle();
         },
 
@@ -44,13 +45,13 @@ define(['jquery', 'backbone'], function ($, Backbone) {
         setActiveStyle: function () {
             console.log("offer sidebar setActiveStyle");
             this.$claimButton.hide();
-            this.$offerTokenField.show();
+            this.$offerClaimedWrapper.show();
         },
 
         setInitialStyle: function () {
             console.log("offer sidebar setInitialStyle");
             this.$claimButton.show();
-            this.$offerTokenField.hide();
+            this.$offerClaimedWrapper.hide();
         }
 
     });

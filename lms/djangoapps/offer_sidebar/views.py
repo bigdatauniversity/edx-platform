@@ -52,6 +52,5 @@ def get_claimed_code_for_user(username, access_token):
         }
     response = requests.request("GET", url, headers=headers, params=querystring)
     response_json = response.json()
-    success = response_json["success"]
     code = response_json["code"]
     return HttpResponse(code)
