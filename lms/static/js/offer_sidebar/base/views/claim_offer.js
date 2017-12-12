@@ -30,6 +30,7 @@ define(['jquery', 'backbone'], function ($, Backbone) {
                 success: function(json) {
                     console.log(json);
                     // var token = JSON.stringify(json);
+                    console.log(self.$offerTokenField);
                     self.$offerTokenField.text(json);
                     self.setActiveStyle();
                     self.trigger('claim');
