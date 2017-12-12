@@ -767,6 +767,11 @@ if settings.FEATURES.get('CLASS_DASHBOARD'):
         url(r'^class_dashboard/', include('class_dashboard.urls')),
     )
 
+if settings.FEATURES.get('ENABLE_OFFER_SIDEBAR'):
+    urlpatterns += (
+        url(r'^claim_ibm_cloud_token/', 'offer_sidebar.views.get_offer_code', name='claim-ibm-cloud-token'),
+    )
+
 if settings.DEBUG or settings.FEATURES.get('ENABLE_DJANGO_ADMIN_SITE'):
     ## Jasmine and admin
     urlpatterns += (url(r'^admin/', include(admin.site.urls)),)

@@ -1,7 +1,7 @@
 ;(function (define) {
     'use strict';
 
-    define(['backbone', 'js/offer_sidebar/base/views/claim_offer'],
+    define(['backbone', 'js/offer_sidebar/dashboard/views/claim_offer'],
         function(Backbone, OfferSidebar) {
 
             return function () {

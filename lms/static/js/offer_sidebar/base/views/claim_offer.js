@@ -15,15 +15,27 @@ define(['jquery', 'backbone'], function ($, Backbone) {
             this.$claimButton = this.$el.find('.offer-claim-button');
             this.$offerTokenField = this.$el.find('.offer-token-field');
             this.setInitialStyle();
-            console.log(this.$claimButton);
-            console.log(this.$offerTokenField);
         },
 
         claimOffer: function () {
             console.log("offer sidebar clainOffer");
-            this.$offerTokenField.text('xxx-xxx-xxx');
-            this.setActiveStyle();
-            this.trigger('claim');
+            $.ajax({
+                url: '/claim_ibm_cloud_token',
+                type: 'POST',
+                dataType: 'json',
+                notifyOnError: false,
+                data: {'username': 'jixu204'},
+                success: function(json) {
+                    var token = JSON.stringify(json);
+                    this.$offerTokenField.text(token);
+                    this.setActiveStyle();
+                    this.trigger('claim');
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                   var json = $.parseJSON(jqXHR.responseText);
+                   console.log(json);
+                }
+            });
         },
 
         setActiveStyle: function () {
