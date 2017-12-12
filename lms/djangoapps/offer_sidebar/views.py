@@ -8,9 +8,10 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponse
 from django.views.decorators.http import require_http_methods
+import json
 
 @login_required
 @require_http_methods(['GET'])
 def get_offer_code(request, username):
-    return HttpResponse(json.dumps({'token': 'xxxxxxxx'}),content_type="application/json")
+    return HttpResponse("success")
 
