@@ -14,5 +14,5 @@ import json
 @require_http_methods(['GET'])
 def get_offer_code(request, username):
     print username
-    return HttpResponse("success")
+    return HttpResponse(username)
 

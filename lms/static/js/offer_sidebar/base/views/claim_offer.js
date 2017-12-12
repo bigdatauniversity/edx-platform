@@ -19,8 +19,10 @@ define(['jquery', 'backbone'], function ($, Backbone) {
 
         claimOffer: function () {
             console.log("offer sidebar claimOffer");
+            var userInfo = $.cookie('edx-user-info').replace(/\\054/g, ',');
+            var username = JSON.parse(JSON.parse(userInfo)).username;
             $.ajax({
-                url: '/claim_ibm_cloud_token/fjgjk',
+                url: '/claim_ibm_cloud_token/'+username,
                 type: 'GET',
                 headers: {'X-CSRFToken': $.cookie('csrftoken')},                
                 notifyOnError: false,

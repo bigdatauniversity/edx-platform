@@ -769,7 +769,7 @@ if settings.FEATURES.get('CLASS_DASHBOARD'):
 
 if settings.FEATURES.get('ENABLE_OFFER_SIDEBAR'):
     urlpatterns += (
-        url(r'^claim_ibm_cloud_token/(?P<username>[^/])/$', 'offer_sidebar.views.get_offer_code', name='claim-ibm-cloud-token'),
+        url(r'^claim_ibm_cloud_token/(?P<username>[^/]+)$', 'offer_sidebar.views.get_offer_code', name='claim-ibm-cloud-token'),
     )
 
 if settings.DEBUG or settings.FEATURES.get('ENABLE_DJANGO_ADMIN_SITE'):
