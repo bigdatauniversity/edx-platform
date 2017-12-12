@@ -25,13 +25,13 @@ define(['jquery', 'backbone'], function ($, Backbone) {
             $.ajax({
                 url: '/claim_ibm_cloud_token/'+username,
                 type: 'GET',
+                dataType : "html",
+                contentType: "application/json",
                 headers: {'X-CSRFToken': $.cookie('csrftoken')},                
                 notifyOnError: false,
                 success: function(json) {
                     console.log("json: "+json);
-                    // var token = JSON.stringify(json);
-                    console.log(self.$offerTokenField);
-                    self.$offerTokenField.text("offertokenfield: "+json);
+                    self.$offerTokenField.text(json);
                     self.setActiveStyle();
                     self.trigger('claim');
                 },

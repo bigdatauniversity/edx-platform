@@ -35,7 +35,23 @@ def get_offer_code(request, username):
         }
     response = requests.request("PUT", url, data=payload, headers=headers)
     response_json = response.json()
-    # code = response_json["code"]
+    success = response_json["success"]
+    code = response_json["code"]
+    if (success == True):
+        return HttpResponse(code)
+    else:
+        return get_claimed_code_for_user(username, access_token)
 
-    return HttpResponse(response_json)
-
+def get_claimed_code_for_user(username, access_token):
+    url = "https://platform-staging.cognitivefaculty.com/api/offers/5a2efc57bb8046001f6fcba8/codes"
+    querystring = {"ownerId":username}
+    headers = {
+        'authorization': "Bearer "+access_token,
+        'cache-control': "no-cache",
+        'postman-token': "e4dde515-e073-3438-d142-02757ae8e237"
+        }
+    response = requests.request("GET", url, headers=headers, params=querystring)
+    response_json = response.json()
+    success = response_json["success"]
+    code = response_json["code"]
+    return HttpResponse(code)
