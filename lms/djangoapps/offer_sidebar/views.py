@@ -25,7 +25,7 @@ def get_offer_code(request, username):
     response_json = response.json()
     access_token = response_json["access_token"]
     
-    url = "https://platform-staging.cognitivefaculty.com/api/offers/5a2efc57bb8046001f6fcba8/codes/claim"】
+    url = "https://platform-staging.cognitivefaculty.com/api/offers/5a2efc57bb8046001f6fcba8/codes/claim"
     payload = "{\n\t\"ownerId\": \"%s\"\n}" % (username)
     headers = {
         'content-type': "application/json",
@@ -35,7 +35,7 @@ def get_offer_code(request, username):
         }
     response = requests.request("PUT", url, data=payload, headers=headers)
     response_json = response.json()
-    code = response_json["code"]
+    # code = response_json["code"]
 
-    return HttpResponse(code)
+    return HttpResponse(response_json)
 

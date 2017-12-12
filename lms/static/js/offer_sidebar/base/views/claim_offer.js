@@ -28,10 +28,10 @@ define(['jquery', 'backbone'], function ($, Backbone) {
                 headers: {'X-CSRFToken': $.cookie('csrftoken')},                
                 notifyOnError: false,
                 success: function(json) {
-                    console.log(json);
+                    console.log("json: "+json);
                     // var token = JSON.stringify(json);
                     console.log(self.$offerTokenField);
-                    self.$offerTokenField.text(json);
+                    self.$offerTokenField.text("offertokenfield: "+json);
                     self.setActiveStyle();
                     self.trigger('claim');
                 },
