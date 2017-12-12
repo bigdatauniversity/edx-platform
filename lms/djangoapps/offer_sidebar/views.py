@@ -22,5 +22,7 @@ def get_offer_code(request, username):
         'postman-token': "f2f77bec-7243-2548-9469-1359ecc394b4"
         }     
     response = requests.request("POST", url, data=payload, headers=headers)
-    return HttpResponse(response["access_token"])
+    response_json = response.json()
+    access_token = response_json["access_token"]
+    return HttpResponse(access_token)
 
