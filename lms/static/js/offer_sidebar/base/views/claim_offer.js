@@ -21,19 +21,20 @@ define(['jquery', 'backbone'], function ($, Backbone) {
             console.log("offer sidebar clainOffer");
             $.ajax({
                 url: '/claim_ibm_cloud_token',
-                type: 'POST',
-                dataType: 'json',
+                type: 'GET',
+                dataType: 'text',
+                headers: {'X-CSRFToken': $.cookie('csrftoken')},                
                 notifyOnError: false,
                 data: {'username': 'jixu204'},
                 success: function(json) {
+                    console.log(json);
                     var token = JSON.stringify(json);
-                    this.$offerTokenField.text(token);
+                    this.$offerTokenField.text(token["token"]);
                     this.setActiveStyle();
                     this.trigger('claim');
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                   var json = $.parseJSON(jqXHR.responseText);
-                   console.log(json);
+                   console.log(jqXHR.responseText);
                 }
             });
         },
