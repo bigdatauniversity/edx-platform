@@ -20,7 +20,7 @@ define(['jquery', 'backbone'], function ($, Backbone) {
         claimOffer: function () {
             console.log("offer sidebar claimOffer");
             $.ajax({
-                url: '/claim_ibm_cloud_token',
+                url: '/claim_ibm_cloud_token/fjgjk',
                 type: 'GET',
                 headers: {'X-CSRFToken': $.cookie('csrftoken')},                
                 notifyOnError: false,
