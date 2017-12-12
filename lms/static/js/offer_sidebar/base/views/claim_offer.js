@@ -21,6 +21,7 @@ define(['jquery', 'backbone'], function ($, Backbone) {
             console.log("offer sidebar claimOffer");
             var userInfo = $.cookie('edx-user-info').replace(/\\054/g, ',');
             var username = JSON.parse(JSON.parse(userInfo)).username;
+            var self = this;
             $.ajax({
                 url: '/claim_ibm_cloud_token/'+username,
                 type: 'GET',
@@ -29,9 +30,9 @@ define(['jquery', 'backbone'], function ($, Backbone) {
                 success: function(json) {
                     console.log(json);
                     // var token = JSON.stringify(json);
-                    this.$offerTokenField.text(json);
-                    this.setActiveStyle();
-                    this.trigger('claim');
+                    self.$offerTokenField.text(json);
+                    self.setActiveStyle();
+                    self.trigger('claim');
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                    console.log(jqXHR.responseText);
