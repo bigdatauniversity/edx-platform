@@ -24,6 +24,7 @@
           this.setActiveStyle(this.$promoCode);
         } else {
           this.$promoCode = this.retrieveClaimedPromoCode(this.$username);
+          console.log("from initialize: "+this.$promoCode);
           if (this.$promoCode) {
             this.setActiveStyle(this.$promoCode);
           } else {
@@ -102,9 +103,11 @@
           headers: { "X-CSRFToken": $.cookie("csrftoken") },
           notifyOnError: false,
           success: function(promoCode) {
+            console.log("from retrieveClaimedPromoCode "+promoCode);
             return promoCode;
           },
           error: function(jqXHR, textStatus, errorThrown) {
+            console.log("from retrieveClaimedPromoCode failed");
             return null;
           }
         });
