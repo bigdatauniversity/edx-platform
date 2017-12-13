@@ -47,7 +47,7 @@
           notifyOnError: false,
           success: function(promoCode) {
             console.log("json: " + promoCode);
-            self.saveCodeInLocalStorage(this.$username, promoCode);
+            self.saveCodeInLocalStorage(self.$username, promoCode);
             self.setActiveStyle(promoCode);
             self.trigger("claim");
           },
@@ -78,7 +78,7 @@
       saveCodeInLocalStorage: function(username, promoCode) {
         var promoCodes = this.findAllSavedCodeInLocalStorage();
         console.log("saveCodeInLocalStorage 1");
-        if (promoCode){
+        if (promoCodes !== null){
             if (promoCodes[username] == null) {
                 console.log("saveCodeInLocalStorage 2");
               promoCodes[username] = promoCode;
@@ -86,6 +86,10 @@
               localStorage.setItem("promoCodes", JSON.stringify(promoCodes));
               console.log("saveCodeInLocalStorage 4");
             }
+        }else{
+            promoCodes = {}
+            promoCodes[username] = promoCode;
+            localStorage.setItem("promoCodes", JSON.stringify(promoCodes));
         }
       },
 
