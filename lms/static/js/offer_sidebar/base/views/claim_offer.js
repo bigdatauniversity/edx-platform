@@ -24,12 +24,6 @@
           this.setActiveStyle(this.$promoCode);
         } else {
           this.$promoCode = this.retrieveClaimedPromoCode(this.$username);
-          console.log("from initialize: "+this.$promoCode);
-          if (this.$promoCode) {
-            this.setActiveStyle(this.$promoCode);
-          } else {
-            this.setInitialStyle();
-          }
         }
       },
 
@@ -78,14 +72,10 @@
 
       saveCodeInLocalStorage: function(username, promoCode) {
         var promoCodes = this.findAllSavedCodeInLocalStorage();
-        console.log("saveCodeInLocalStorage 1");
         if (promoCodes !== null){
             if (promoCodes[username] == null) {
-                console.log("saveCodeInLocalStorage 2");
               promoCodes[username] = promoCode;
-              console.log("saveCodeInLocalStorage 3");
               localStorage.setItem("promoCodes", JSON.stringify(promoCodes));
-              console.log("saveCodeInLocalStorage 4");
             }
         }else{
             promoCodes = {}
@@ -95,6 +85,7 @@
       },
 
       retrieveClaimedPromoCode: function(username) {
+          var self = this;
         $.ajax({
           url: "/retrieve_claimed_code_for_user/" + username,
           type: "GET",
@@ -104,11 +95,12 @@
           notifyOnError: false,
           success: function(promoCode) {
             console.log("from retrieveClaimedPromoCode "+promoCode);
-            return promoCode;
+            self.setActiveStyle(promoCode);
+
           },
           error: function(jqXHR, textStatus, errorThrown) {
             console.log("from retrieveClaimedPromoCode failed");
-            return null;
+            self.setActiveStyle();
           }
         });
       },
