@@ -9,7 +9,6 @@
       },
 
       initialize: function() {
-        console.log("offer sidebar initialize");
         this.$claimButton = this.$el.find(".offer-claim-button");
         this.$offerTokenField = this.$el.find(".offer-token-field");
         this.$offerClaimedWrapper = this.$el.find(".offer-claimed-wrapper");
@@ -28,7 +27,6 @@
       },
 
       claimOffer: function() {
-        console.log("offer sidebar claimOffer");
         var self = this;
 
         this.setLoadingStyle();
@@ -41,13 +39,11 @@
           headers: { "X-CSRFToken": $.cookie("csrftoken") },
           notifyOnError: false,
           success: function(promoCode) {
-            console.log("json: " + promoCode);
             self.saveCodeInLocalStorage(self.$username, promoCode);
             self.setActiveStyle(promoCode);
             self.trigger("claim");
           },
           error: function(jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR.responseText);
             this.setInitialStyle();
           }
         });
@@ -94,19 +90,16 @@
           headers: { "X-CSRFToken": $.cookie("csrftoken") },
           notifyOnError: false,
           success: function(promoCode) {
-            console.log("from retrieveClaimedPromoCode "+promoCode);
             self.setActiveStyle(promoCode);
 
           },
           error: function(jqXHR, textStatus, errorThrown) {
-            console.log("from retrieveClaimedPromoCode failed");
             self.setActiveStyle();
           }
         });
       },
 
       setActiveStyle: function(promoCode) {
-        console.log("offer sidebar setActiveStyle");
         if (this.$promoCode != promoCode) {
           this.$promoCode = promoCode;
         }
@@ -119,7 +112,6 @@
       },
 
       setLoadingStyle: function(promoCode) {
-        console.log("offer sidebar setLoadingStyle");
         this.$claimButton
           .html('<p class="loading-indicator"></p>')
           .prop("disabled", true);
@@ -129,7 +121,6 @@
       },
 
       setInitialStyle: function() {
-        console.log("offer sidebar setInitialStyle");
         this.$claimButton.html("Claim your offer").prop("disabled", false);
         this.$claimButton.show();
         this.$offerClaimedWrapper.hide();
