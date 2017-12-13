@@ -17,13 +17,11 @@ def get_offer_code(request, username):
     
     access_token = get_access_token()
 
-    url = "https://platform-staging.cognitivefaculty.com/api/offers/5a2efc57bb8046001f6fcba8/codes/claim"
+    url = "%s/offers/%s/codes/claim" % (settings.CF_PLATFORM_API, settings.CF_PLATFORM_CURRENT_OFFER)
     payload = "{\n\t\"ownerId\": \"%s\"\n}" % (username)
     headers = {
         'content-type': "application/json",
-        'authorization': "Bearer "+access_token,
-        'cache-control': "no-cache",
-        'postman-token': "baecdee8-fe53-a5ef-a70b-8e3e8919c979"
+        'authorization': "Bearer "+access_token
         }
     response = requests.request("PUT", url, data=payload, headers=headers)
     response_json = response.json()
@@ -42,12 +40,16 @@ def get_claimed_code_for_user(request, username):
     return get_claimed_code_for_user_with_token(username, access_token)
 
 def get_access_token():
-    url = "https://accounts.cognitivefaculty.com/auth/realms/master/protocol/openid-connect/token"
-    payload = "client_id=cognitive-faculty-platform-api&client_secret=1c87cba6-79e7-43ee-882a-5993a6cbae5f&username=xu.ji%40ibm.com&password=t6rQhJE4*C4f&grant_type=password"
+    url = settings.CF_PLATFORM_TOKEN_ENDPOINT
+    payload = {
+        "client_id": settings.CF_PLATFORM_CLIENT_ID,
+        "client_secret": settings.CF_PLATFORM_CLIENT_SECRET,
+        "username": settings.CF_PLATFORM_USERNAME,
+        "password": settings.CF_PLATFORM_PASSWORD,
+        "grant_type": "password"
+    }
     headers = {
-        'content-type': "application/x-www-form-urlencoded",
-        'cache-control': "no-cache",
-        'postman-token': "f2f77bec-7243-2548-9469-1359ecc394b4"
+        'content-type': "application/x-www-form-urlencoded"
         }     
     response = requests.request("POST", url, data=payload, headers=headers)
     response_json = response.json()
@@ -55,12 +57,10 @@ def get_access_token():
     return access_token
 
 def get_claimed_code_for_user_with_token(username, access_token):
-    url = "https://platform-staging.cognitivefaculty.com/api/offers/5a2efc57bb8046001f6fcba8/codes"
+    url = "%s/api/offers/%s/codes" % (settings.CF_PLATFORM_API, settings.CF_PLATFORM_CURRENT_OFFER)
     querystring = {"ownerId":username}
     headers = {
-        'authorization': "Bearer "+access_token,
-        'cache-control': "no-cache",
-        'postman-token': "e4dde515-e073-3438-d142-02757ae8e237"
+        'authorization': "Bearer "+access_token
         }
     response = requests.request("GET", url, headers=headers, params=querystring)
     response_json = response.json()
