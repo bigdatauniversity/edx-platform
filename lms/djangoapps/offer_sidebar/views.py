@@ -14,17 +14,9 @@ import requests
 @login_required
 @require_http_methods(['GET'])
 def get_offer_code(request, username):
-    url = "https://accounts.cognitivefaculty.com/auth/realms/master/protocol/openid-connect/token"
-    payload = "client_id=cognitive-faculty-platform-api&client_secret=1c87cba6-79e7-43ee-882a-5993a6cbae5f&username=xu.ji%40ibm.com&password=t6rQhJE4*C4f&grant_type=password"
-    headers = {
-        'content-type': "application/x-www-form-urlencoded",
-        'cache-control': "no-cache",
-        'postman-token': "f2f77bec-7243-2548-9469-1359ecc394b4"
-        }     
-    response = requests.request("POST", url, data=payload, headers=headers)
-    response_json = response.json()
-    access_token = response_json["access_token"]
     
+    access_token = get_access_token()
+
     url = "https://platform-staging.cognitivefaculty.com/api/offers/5a2efc57bb8046001f6fcba8/codes/claim"
     payload = "{\n\t\"ownerId\": \"%s\"\n}" % (username)
     headers = {
@@ -40,9 +32,30 @@ def get_offer_code(request, username):
     if (success == True):
         return HttpResponse(code)
     else:
-        return get_claimed_code_for_user(username, access_token)
+        return get_claimed_code_for_user_with_token(username, access_token)
 
-def get_claimed_code_for_user(username, access_token):
+@login_required
+@require_http_methods(['GET'])
+def get_claimed_code_for_user(request, username):
+
+    access_token = get_access_token()
+    return get_claimed_code_for_user_with_token(username, access_token)
+
+def get_access_token():
+    url = "https://accounts.cognitivefaculty.com/auth/realms/master/protocol/openid-connect/token"
+    payload = "client_id=cognitive-faculty-platform-api&client_secret=1c87cba6-79e7-43ee-882a-5993a6cbae5f&username=xu.ji%40ibm.com&password=t6rQhJE4*C4f&grant_type=password"
+    headers = {
+        'content-type': "application/x-www-form-urlencoded",
+        'cache-control': "no-cache",
+        'postman-token': "f2f77bec-7243-2548-9469-1359ecc394b4"
+        }     
+    response = requests.request("POST", url, data=payload, headers=headers)
+    response_json = response.json()
+    access_token = response_json["access_token"]
+    return access_token
+
+def get_claimed_code_for_user_with_token(username, access_token):
+
     url = "https://platform-staging.cognitivefaculty.com/api/offers/5a2efc57bb8046001f6fcba8/codes"
     querystring = {"ownerId":username}
     headers = {
@@ -54,3 +67,4 @@ def get_claimed_code_for_user(username, access_token):
     response_json = response.json()
     code = response_json["code"]
     return HttpResponse(code)
+
