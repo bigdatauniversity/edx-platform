@@ -55,7 +55,6 @@ def get_access_token():
     return access_token
 
 def get_claimed_code_for_user_with_token(username, access_token):
-
     url = "https://platform-staging.cognitivefaculty.com/api/offers/5a2efc57bb8046001f6fcba8/codes"
     querystring = {"ownerId":username}
     headers = {
@@ -67,4 +66,3 @@ def get_claimed_code_for_user_with_token(username, access_token):
     response_json = response.json()
     code = response_json["code"]
     return HttpResponse(code)
-

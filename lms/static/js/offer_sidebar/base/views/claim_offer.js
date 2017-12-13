@@ -21,11 +21,11 @@ define(['jquery', 'backbone'], function ($, Backbone) {
             var userInfo = $.cookie('edx-user-info').replace(/\\054/g, ',');
             this.$username = JSON.parse(JSON.parse(userInfo)).username;
 
-            this.$promoCode = findCodeInLocalStorage(this.$username);
+            this.$promoCode = this.findCodeInLocalStorage(this.$username);
             if (this.$promoCode){
                 this.setActiveStyle(this.$promoCode);
             }else{
-                this.$promoCode = retrieveClaimedPromoCode(this.$username);
+                this.$promoCode = this.retrieveClaimedPromoCode(this.$username);
                 if (this.$promoCode) {
                     this.setActiveStyle(this.$promoCode);
                 }else{
@@ -85,7 +85,7 @@ define(['jquery', 'backbone'], function ($, Backbone) {
 
         retrieveClaimedPromoCode: function (username) {
             $.ajax({
-                url: '/retrieve_claimed_code_for_user/'+this.$username,
+                url: '/retrieve_claimed_code_for_user/'+username,
                 type: 'GET',
                 dataType : "html",
                 contentType: "application/json",
