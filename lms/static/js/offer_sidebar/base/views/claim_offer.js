@@ -23,7 +23,7 @@ define(['jquery', 'backbone'], function ($, Backbone) {
             var self = this;
             var userInfo = $.cookie('edx-user-info').replace(/\\054/g, ',');
             var username = JSON.parse(JSON.parse(userInfo)).username;
-            this.$claimButton.html('<p class="loading-indicator"></p>');
+            this.$claimButton.html('<p class="loading-indicator"></p>').prop("disabled", true);
             $(".loading-indicator").addClass("loading");
             $.ajax({
                 url: '/claim_ibm_cloud_token/'+username,
@@ -37,11 +37,11 @@ define(['jquery', 'backbone'], function ($, Backbone) {
                     self.$offerTokenField.text(json);
                     self.setActiveStyle();
                     self.trigger('claim');
-                    this.$claimButton.html("Claim your offer");
+                    this.$claimButton.html("Claim your offer").prop("disabled", false);
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                    console.log(jqXHR.responseText);
-                   this.$claimButton.html("Claim your offer");
+                   this.$claimButton.html("Claim your offer").prop("disabled", false);
                 }
             });
         },
