@@ -70,7 +70,8 @@ define(['jquery', 'backbone'], function ($, Backbone) {
             try {
                 var promoCodes = localStorage.getItem("promoCodes");
                 return promoCodes ? JSON.parse(promoCodes) : null;
-            }catch{
+            }catch (error){
+                console.log(error);
                 return null;
             }
         },
