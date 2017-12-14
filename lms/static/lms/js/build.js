@@ -25,6 +25,7 @@
             'js/groups/views/cohorts_dashboard_factory',
             'js/search/course/course_search_factory',
             'js/search/dashboard/dashboard_search_factory',
+            'js/offer_sidebar/dashboard/dashboard_offer_sidebar_factory',
             'js/student_account/logistration_factory',
             'js/student_account/views/account_settings_factory',
             'js/student_account/views/finish_auth_factory',
