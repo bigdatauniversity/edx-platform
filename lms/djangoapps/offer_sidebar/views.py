@@ -6,7 +6,7 @@ from django_countries import countries
 
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, HttpResponseBadRequest
 from django.views.decorators.http import require_http_methods
 import json
 import requests
@@ -64,7 +64,7 @@ def get_claimed_code_for_user_with_token(username, access_token):
         }
     response = requests.request("GET", url, headers=headers, params=querystring)
     response_json = response.json()
-    if (response_json["success"] == false):
-        return Http404
+    if (response_json["success"] == False):
+        return HttpResponseBadRequest()
     code = response_json["code"]
     return HttpResponse(code)
