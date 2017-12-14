@@ -23,15 +23,18 @@ def get_offer_code(request, username):
         'content-type': "application/json",
         'authorization': "Bearer "+access_token
         }
-    response = requests.request("PUT", url, data=payload, headers=headers)
-    response_json = response.json()
-    success = response_json["success"]
-    if (success == True):
-        code = response_json["code"]
-        return HttpResponse(code)
-    else:
-        return get_claimed_code_for_user_with_token(username, access_token)
-
+    try:
+        response = requests.request("PUT", url, data=payload, headers=headers)
+        response_json = response.json()
+        success = response_json["success"]
+        if (success == True):
+            code = response_json["code"]
+            return HttpResponse(code)
+        else:
+            return get_claimed_code_for_user_with_token(username, access_token)
+    except:
+        return HttpResponseBadRequest()
+    
 @login_required
 @require_http_methods(['GET'])
 def get_claimed_code_for_user(request, username):
@@ -64,7 +67,10 @@ def get_claimed_code_for_user_with_token(username, access_token):
         }
     response = requests.request("GET", url, headers=headers, params=querystring)
     response_json = response.json()
-    if (response_json["success"] == False):
+    try:
+        if (response_json["success"] == False):
+            return HttpResponseBadRequest()
+        code = response_json["code"]
+        return HttpResponse(code)
+    except:
         return HttpResponseBadRequest()
-    code = response_json["code"]
-    return HttpResponse(code)

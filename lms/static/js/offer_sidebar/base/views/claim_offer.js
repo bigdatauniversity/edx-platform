@@ -44,7 +44,7 @@
             self.trigger("claim");
           },
           error: function(jqXHR, textStatus, errorThrown) {
-            this.setInitialStyle();
+            self.setInitialStyle();
           }
         });
       },
@@ -94,7 +94,7 @@
 
           },
           error: function(jqXHR, textStatus, errorThrown) {
-            self.setActiveStyle();
+            self.setInitialStyle();
           }
         });
       },
