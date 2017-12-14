@@ -64,5 +64,7 @@ def get_claimed_code_for_user_with_token(username, access_token):
         }
     response = requests.request("GET", url, headers=headers, params=querystring)
     response_json = response.json()
+    if (response_json["success"] == false):
+        return Http404
     code = response_json["code"]
     return HttpResponse(code)
