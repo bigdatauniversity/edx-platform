@@ -90,8 +90,11 @@
           headers: { "X-CSRFToken": $.cookie("csrftoken") },
           notifyOnError: false,
           success: function(promoCode) {
-            self.setActiveStyle(promoCode);
-
+              if (promoCode == null){
+                self.setInitialStyle();
+              }else{
+                self.setActiveStyle(promoCode);
+              }
           },
           error: function(jqXHR, textStatus, errorThrown) {
             self.setInitialStyle();

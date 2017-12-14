@@ -34,7 +34,7 @@ def get_offer_code(request, username):
             return get_claimed_code_for_user_with_token(username, access_token)
     except:
         return HttpResponseBadRequest()
-    
+
 @login_required
 @require_http_methods(['GET'])
 def get_claimed_code_for_user(request, username):
@@ -69,7 +69,7 @@ def get_claimed_code_for_user_with_token(username, access_token):
     response_json = response.json()
     try:
         if (response_json["success"] == False):
-            return HttpResponseBadRequest()
+            return HttpResponse("null")
         code = response_json["code"]
         return HttpResponse(code)
     except:
