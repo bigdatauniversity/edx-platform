@@ -12,6 +12,7 @@ import json
 import requests
 
 @login_required
+@ensure_csrf_cookie
 @require_http_methods(['GET'])
 def get_offer_code(request, username):
     
@@ -36,6 +37,7 @@ def get_offer_code(request, username):
         return HttpResponseBadRequest()
 
 @login_required
+@ensure_csrf_cookie
 @require_http_methods(['GET'])
 def get_claimed_code_for_user(request, username):
 
@@ -60,7 +62,7 @@ def get_access_token():
     return access_token
 
 def get_claimed_code_for_user_with_token(username, access_token):
-    url = "%s/api/offers/%s/codes" % (settings.CF_PLATFORM_API, settings.CF_PLATFORM_CURRENT_OFFER)
+    url = "%s/offers/%s/codes" % (settings.CF_PLATFORM_API, settings.CF_PLATFORM_CURRENT_OFFER)
     querystring = {"ownerId":username}
     headers = {
         'authorization': "Bearer "+access_token
