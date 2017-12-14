@@ -3,6 +3,7 @@
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django_countries import countries
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
