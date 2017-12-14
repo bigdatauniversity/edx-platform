@@ -90,7 +90,7 @@
           headers: { "X-CSRFToken": $.cookie("csrftoken") },
           notifyOnError: false,
           success: function(promoCode) {
-              if (promoCode == null){
+              if (promoCode == "null"){
                 self.setInitialStyle();
               }else{
                 self.setActiveStyle(promoCode);
@@ -107,9 +107,9 @@
           this.$promoCode = promoCode;
         }
         this.$offerTokenField.text(promoCode);
-        $(".offer-sidebar-dismiss").click(function() {
-          $(".offer-sidebar").hide();
-        });
+        // $(".offer-sidebar-dismiss").click(function() {
+        //   $(".offer-sidebar").hide();
+        // });
         this.$claimButton.hide();
         this.$offerClaimedWrapper.show();
       },
