@@ -26,8 +26,8 @@ def get_offer_code(request, username):
     response = requests.request("PUT", url, data=payload, headers=headers)
     response_json = response.json()
     success = response_json["success"]
-    code = response_json["code"]
     if (success == True):
+        code = response_json["code"]
         return HttpResponse(code)
     else:
         return get_claimed_code_for_user_with_token(username, access_token)
