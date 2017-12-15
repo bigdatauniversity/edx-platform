@@ -1,5 +1,5 @@
 (function(define) {
-  define(["jquery", "backbone"], function($, Backbone) {
+  define(["jquery", "backbone", "js/cc-segment/segment"], function($, Backbone, CCSegment) {
     "use strict";
 
     return Backbone.View.extend({
@@ -41,6 +41,17 @@
           success: function(promoCode) {
             self.saveCodeInLocalStorage(self.$username, promoCode);
             self.setActiveStyle(promoCode);
+            CCSegment.track({
+              'action': 'Claimed',
+              'object': promoCode,
+              'objectType': 'Code',
+              'customName1': 'UserName',
+              'customValue1': self.$username,
+              'customName3': 'OfferId',
+              'customValue3': '5a2ebf6c9592dc139c32329c',
+              'customName4': 'OfferName',
+              'customValue4': '50K IBM Cloud'
+            });
             self.trigger("claim");
           },
           error: function(jqXHR, textStatus, errorThrown) {
