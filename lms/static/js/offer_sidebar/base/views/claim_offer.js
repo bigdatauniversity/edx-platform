@@ -43,12 +43,14 @@
             self.setActiveStyle(promoCode);
             CCSegment.track({
               'action': 'Claimed',
-              'object': 'IBM Cloud Promo Code 2017',
+              'object': promoCode,
               'objectType': 'Code',
               'customName1': 'UserName',
               'customValue1': self.$username,
-              'customName2': 'PromoCode',
-              'customValue2': promoCode
+              'customName3': 'OfferId',
+              'customValue3': '5a2ebf6c9592dc139c32329c',
+              'customName4': 'OfferName',
+              'customValue4': '50K IBM Cloud'
             });
             self.trigger("claim");
           },
