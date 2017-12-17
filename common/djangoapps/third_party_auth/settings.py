@@ -103,3 +103,10 @@ def apply_settings(django_settings):
         ('lastName', 'last_name'),
         ('emailAddress', 'email_address')
     ]
+
+    django_settings.SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+        'fields': 'id,name,email', # needed starting from protocol v2.4
+    }
+
+    # Add email to requested authorizations
+    django_settings.SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
