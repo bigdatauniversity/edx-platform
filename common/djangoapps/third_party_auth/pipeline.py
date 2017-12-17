@@ -232,13 +232,6 @@ def get_authenticated_user(auth_provider, username, uid):
     user.backend = auth_provider.get_authentication_backend()
     return user
 
-def get_email_from_pipeline(running_pipeline):
-    """Get email from running_pipeline"""
-    try:
-        return running_pipeline['kwargs']['details']['email']
-    except:
-        return None
-
 def get_authenticated_user_by_email(auth_provider, email):
     """Gets a saved user authenticated by a particular backend.
 
@@ -255,12 +248,15 @@ def get_authenticated_user_by_email(auth_provider, email):
         user has no social auth associated with the given backend.
         AssertionError: if the user is not authenticated.
     """
-    try:
-        user = models.DjangoStorage.user.get_users_by_email(email)[0]
-        user.backend = auth_provider.get_authentication_backend()
-    except:
+    if not email:
         raise User.DoesNotExist
 
+    users = list(models.DjangoStorage.user.get_users_by_email(email))
+    if len(users) == 0:
+        raise User.DoesNotExist
+
+    user = users[0]
+    user.backend = auth_provider.get_authentication_backend()
     return user
 
 def get_authenticated_user_helper(auth_provider, running_pipeline):
@@ -279,8 +275,9 @@ def get_authenticated_user_helper(auth_provider, running_pipeline):
             running_pipeline['kwargs'].get('username'),
             running_pipeline['kwargs']['uid']
         )
-    except:
-        user = get_authenticated_user_by_email(auth_provider, get_email_from_pipeline(running_pipeline))
+    except User.DoesNotExist:
+        email = running_pipeline['kwargs'].get('details', {}).get('email')
+        user = get_authenticated_user_by_email(auth_provider, email)
         update_user_social_account_link(user, running_pipeline)
 
     return user
