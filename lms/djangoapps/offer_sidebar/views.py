@@ -15,12 +15,14 @@ import requests
 @login_required
 @ensure_csrf_cookie
 @require_http_methods(['GET'])
-def get_offer_code(request, username):
-    
+def get_offer_code(request):
+
     access_token = get_access_token()
 
     url = "%s/offers/%s/codes/claim" % (settings.CF_PLATFORM_API, settings.CF_PLATFORM_CURRENT_OFFER)
-    payload = "{\n\t\"ownerId\": \"%s\"\n}" % (username)
+    payload = {
+        "ownerId": request.user.username
+    }
     headers = {
         'content-type': "application/json",
         'authorization': "Bearer "+access_token
@@ -33,17 +35,17 @@ def get_offer_code(request, username):
             code = response_json["code"]
             return HttpResponse(code)
         else:
-            return get_claimed_code_for_user_with_token(username, access_token)
+            return get_claimed_code_for_user_with_token(request.user.username, access_token)
     except:
         return HttpResponseBadRequest()
 
 @login_required
 @ensure_csrf_cookie
 @require_http_methods(['GET'])
-def get_claimed_code_for_user(request, username):
+def get_claimed_code_for_user(request):
 
     access_token = get_access_token()
-    return get_claimed_code_for_user_with_token(username, access_token)
+    return get_claimed_code_for_user_with_token(request.user.username, access_token)
 
 def get_access_token():
     url = settings.CF_PLATFORM_TOKEN_ENDPOINT
@@ -56,7 +58,7 @@ def get_access_token():
     }
     headers = {
         'content-type': "application/x-www-form-urlencoded"
-        }     
+        }
     response = requests.request("POST", url, data=payload, headers=headers)
     response_json = response.json()
     access_token = response_json["access_token"]

@@ -32,12 +32,13 @@
         this.setLoadingStyle();
 
         $.ajax({
-          url: "/claim_ibm_cloud_token/" + this.$username,
+          url: "/claim_ibm_cloud_token/",
           type: "GET",
           dataType: "html",
           contentType: "application/json",
           headers: { "X-CSRFToken": $.cookie("csrftoken") },
           notifyOnError: false,
+          timeout: 100000,
           success: function(promoCode) {
             self.saveCodeInLocalStorage(self.$username, promoCode);
             self.setActiveStyle(promoCode);
@@ -94,7 +95,7 @@
       retrieveClaimedPromoCode: function(username) {
           var self = this;
         $.ajax({
-          url: "/retrieve_claimed_code_for_user/" + username,
+          url: "/retrieve_claimed_code_for_user/",
           type: "GET",
           dataType: "html",
           contentType: "application/json",

@@ -769,8 +769,8 @@ if settings.FEATURES.get('CLASS_DASHBOARD'):
 
 if settings.FEATURES.get('ENABLE_OFFER_SIDEBAR'):
     urlpatterns += (
-        url(r'^claim_ibm_cloud_token/(?P<username>[^/]+)$', 'offer_sidebar.views.get_offer_code', name='claim-ibm-cloud-token'),
-        url(r'^retrieve_claimed_code_for_user/(?P<username>[^/]+)$', 'offer_sidebar.views.get_claimed_code_for_user', name='retrieve-claimed-code-for-user'),
+        url(r'^claim_ibm_cloud_token/', 'offer_sidebar.views.get_offer_code', name='claim-ibm-cloud-token'),
+        url(r'^retrieve_claimed_code_for_user/', 'offer_sidebar.views.get_claimed_code_for_user', name='retrieve-claimed-code-for-user'),
     )
 
 if settings.DEBUG or settings.FEATURES.get('ENABLE_DJANGO_ADMIN_SITE'):
@@ -1016,7 +1016,7 @@ if settings.FEATURES.get('ENABLE_MKTG_SITE'):
         'WELCOME': 'welcome',
         'WELCOME_ACTIVATE': 'welcome-activate'
     }
-    
+
     for key, value in welcome_keys.iteritems():
         if key in settings.MKTG_URLS:
             urlpatterns += (
