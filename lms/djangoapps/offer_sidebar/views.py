@@ -11,6 +11,9 @@ from django.http import Http404, HttpResponse, HttpResponseBadRequest
 from django.views.decorators.http import require_http_methods
 import json
 import requests
+import logging
+
+log = logging.getLogger(__name__)
 
 @login_required
 @ensure_csrf_cookie
@@ -28,7 +31,7 @@ def get_offer_code(request):
         'authorization': "Bearer "+access_token
         }
     try:
-        response = requests.request("PUT", url, data=payload, headers=headers)
+        response = requests.request("PUT", url, data=json.dumps(payload), headers=headers)
         response_json = response.json()
         success = response_json["success"]
         if (success == True):
@@ -37,6 +40,7 @@ def get_offer_code(request):
         else:
             return get_claimed_code_for_user_with_token(request.user.username, access_token)
     except:
+        log.exception("Failed to get offer code for user %s", request.user.username)
         return HttpResponseBadRequest()
 
 @login_required
@@ -78,4 +82,5 @@ def get_claimed_code_for_user_with_token(username, access_token):
         code = response_json["code"]
         return HttpResponse(code)
     except:
+        log.exception("Failed to get claimed code for user %s", username)
         return HttpResponseBadRequest()
