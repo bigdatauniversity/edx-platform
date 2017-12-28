@@ -63,7 +63,7 @@
 
       findCodeInLocalStorage: function(username) {
         var promoCodes = this.findAllSavedCodeInLocalStorage();
-        if (promoCodes && promoCodes[username]) {
+        if (promoCodes && promoCodes[username] && promoCodes[username] !== 'null') {
           return promoCodes[username];
         }
       },
